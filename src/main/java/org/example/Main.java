@@ -1,6 +1,9 @@
 package org.example;
 
+import org.example.config.H2Database;
+import org.example.config.MysqlDatabase;
 import org.example.config.PostgresDatabase;
+import org.example.elements.TestData;
 import org.example.users.User;
 import org.example.users.UserWorker;
 
@@ -13,8 +16,38 @@ import java.util.Optional;
 
 public class Main {
     public static void main (String[] args) throws SQLException, IOException {
-        Connection connection = PostgresDatabase.getConnection();
-        UserWorker worker = new UserWorker(connection);
+        PostgresDatabase postgresDatabase = PostgresDatabase.getInstance();
+        postgresDatabase.execute("src/main/resources/file.sql");
+//        postgresDatabase.executeUpdate("INSERT INTO test_table VALUES (7, 'Oleg')");
+//        postgresDatabase.executeResult("SELECT * FROM test_table");
+//        System.out.println("=============");
+//        postgresDatabase.executeUpdate("DELETE FROM test_table WHERE id = 7");
+//        postgresDatabase.executeResult("SELECT * FROM test_table");
+//        System.out.println("+++++++++++++++++");
+//
+//        MysqlDatabase mysqlDatabase = MysqlDatabase.getInstance();
+//        mysqlDatabase.executeUpdate("INSERT INTO test_table VALUES (7, 'Oleg')");
+//        mysqlDatabase.executeResult("SELECT * FROM test_table");
+//        System.out.println("===============");
+//        mysqlDatabase.executeUpdate("DELETE FROM test_table WHERE id = 7");
+//        mysqlDatabase.executeResult("SELECT * FROM test_table");
+//        System.out.println("+++++++++++++++++");
+//
+//        H2Database h2Database = H2Database.getInstance();
+////        h2Database.aaa();
+//        h2Database.executeUpdate("INSERT INTO test_table VALUES (7, 'Oleg')");
+//        h2Database.executeResult("SELECT * FROM test_table");
+//        System.out.println("===============");
+//        h2Database.executeUpdate("DELETE FROM test_table WHERE id = 7");
+//        h2Database.executeResult("SELECT * FROM test_table");
+
+
+
+
+
+
+
+//        UserWorker worker = new UserWorker(connection);
 
         //TODO: use select without parameters (select all users)
 //        List<User> allUsers = worker.findAllUser();

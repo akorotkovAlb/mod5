@@ -3,11 +3,16 @@ package org.example.config;
 import org.example.elements.TestData;
 import org.example.props.PropertyReader;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class MysqlDatabase {
 
@@ -48,11 +53,23 @@ public class MysqlDatabase {
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 TestData td = new TestData(resultSet.getInt("id"), resultSet.getString("name"));
-                System.out.println("------>>>> " + td.toString());
+                System.out.println("mysql ------>>>> " + td.toString());
             }
         } catch(SQLException e) {
             System.out.println(String.format("Exception. Reason: %s", e.getMessage()));
             throw new RuntimeException("Can not run query.");
+        }
+    }
+
+    public void execute(String fileName) {
+        try(Statement statement = mysqlConnection.createStatement()) {
+            String content = new String(Files.readAllBytes(Paths.get(fileName)));
+            statement.execute(content);
+        } catch(SQLException e) {
+            System.out.println(String.format("Exception. Reason: %s", e.getMessage()));
+            throw new RuntimeException("Can not run query.");
+        } catch(IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
