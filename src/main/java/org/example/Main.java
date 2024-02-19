@@ -8,6 +8,7 @@ import org.example.users.User;
 import org.example.users.UserWorker;
 
 import java.io.IOException;
+import java.io.SyncFailedException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,8 +17,12 @@ import java.util.Optional;
 
 public class Main {
     public static void main (String[] args) throws SQLException, IOException {
-        PostgresDatabase postgresDatabase = PostgresDatabase.getInstance();
-        postgresDatabase.execute("src/main/resources/file.sql");
+        String query = "INSERT INTO users (name, birthday) VALUES ('Oleg', '2000-01-01')";
+
+
+        Connection connection = PostgresDatabase.getConnection();
+
+//        todo: for 6.1 and 6.2 modules
 //        postgresDatabase.executeUpdate("INSERT INTO test_table VALUES (7, 'Oleg')");
 //        postgresDatabase.executeResult("SELECT * FROM test_table");
 //        System.out.println("=============");
@@ -41,13 +46,37 @@ public class Main {
 //        h2Database.executeUpdate("DELETE FROM test_table WHERE id = 7");
 //        h2Database.executeResult("SELECT * FROM test_table");
 
+        // todo: start 7.1 and 7.2 modules
+        UserWorker worker = new UserWorker(connection);
 
+        long startPS = System.currentTimeMillis();
+        System.out.println("start PS ===> " + startPS);
+        int start1 = 0;
+        LocalDate ld = LocalDate.of(2010, 1, 1);
+        while(start1 < 10000) {
+            worker.saveUser("Anton", ld);
+            start1++;
+        }
+        long finishPS = System.currentTimeMillis();
+        System.out.println("finish PS ===> " + finishPS);
+        long psResult = finishPS - startPS;
+        System.out.println("res PS ===> " + psResult);
+        System.out.println("======================");
 
+        long startSimple = System.currentTimeMillis();
+        System.out.println("start simple ===> " + startSimple);
+        int start = 0;
+        while(start < 10000) {
+            worker.simpleSaveUser(query);
+            start++;
+        }
+        long finishSimple = System.currentTimeMillis();
+        System.out.println("finish simple ===> " + finishSimple);
+        long simpleResult = finishSimple - startSimple;
+        System.out.println("res simple ===> " + simpleResult);
 
-
-
-
-//        UserWorker worker = new UserWorker(connection);
+        long res = simpleResult - psResult;
+        System.out.println("res ==> " + res);
 
         //TODO: use select without parameters (select all users)
 //        List<User> allUsers = worker.findAllUser();

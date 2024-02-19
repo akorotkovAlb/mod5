@@ -32,7 +32,7 @@ public class UserWorker {
         this.connection = connection;
         try {
             this.simpleInsertStatement = connection.createStatement();
-            this.insertStatement = connection.prepareStatement(INSERT_STRING);
+            this.insertStatement = connection.prepareStatement(PREPARE_STATEMENT_INSERT);
 
             this.selectAllStatement = connection.prepareStatement(SELECT_ALL_STRING);
             this.selectByStatement = connection.prepareStatement(SELECT_BY_ID_STRING);
