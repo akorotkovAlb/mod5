@@ -48,35 +48,35 @@ public class Main {
 
         // todo: start 7.1 and 7.2 modules
         UserWorker worker = new UserWorker(connection);
-
-        long startPS = System.currentTimeMillis();
-        System.out.println("start PS ===> " + startPS);
-        int start1 = 0;
-        LocalDate ld = LocalDate.of(2010, 1, 1);
-        while(start1 < 10000) {
-            worker.saveUser("Anton", ld);
-            start1++;
-        }
-        long finishPS = System.currentTimeMillis();
-        System.out.println("finish PS ===> " + finishPS);
-        long psResult = finishPS - startPS;
-        System.out.println("res PS ===> " + psResult);
-        System.out.println("======================");
-
-        long startSimple = System.currentTimeMillis();
-        System.out.println("start simple ===> " + startSimple);
-        int start = 0;
-        while(start < 10000) {
-            worker.simpleSaveUser(query);
-            start++;
-        }
-        long finishSimple = System.currentTimeMillis();
-        System.out.println("finish simple ===> " + finishSimple);
-        long simpleResult = finishSimple - startSimple;
-        System.out.println("res simple ===> " + simpleResult);
-
-        long res = simpleResult - psResult;
-        System.out.println("res ==> " + res);
+//
+//        long startPS = System.currentTimeMillis();
+//        System.out.println("start PS ===> " + startPS);
+//        int start1 = 0;
+//        LocalDate ld = LocalDate.of(2010, 1, 1);
+//        while(start1 < 10000) {
+//            worker.saveUser("Anton", ld);
+//            start1++;
+//        }
+//        long finishPS = System.currentTimeMillis();
+//        System.out.println("finish PS ===> " + finishPS);
+//        long psResult = finishPS - startPS;
+//        System.out.println("res PS ===> " + psResult);
+//        System.out.println("======================");
+//
+//        long startSimple = System.currentTimeMillis();
+//        System.out.println("start simple ===> " + startSimple);
+//        int start = 0;
+//        while(start < 10000) {
+//            worker.simpleSaveUser(query);
+//            start++;
+//        }
+//        long finishSimple = System.currentTimeMillis();
+//        System.out.println("finish simple ===> " + finishSimple);
+//        long simpleResult = finishSimple - startSimple;
+//        System.out.println("res simple ===> " + simpleResult);
+//
+//        long res = simpleResult - psResult;
+//        System.out.println("res ==> " + res);
 
         //TODO: use select without parameters (select all users)
 //        List<User> allUsers = worker.findAllUser();
@@ -106,7 +106,7 @@ public class Main {
         //TODO generate random user and add to db
         // 100 user insert vs 100 user as batch update
 //        long startSimpleInsert = System.currentTimeMillis();
-//        for (int i = 0; i < 100; i++) {
+//        for (int i = 0; i < 1000; i++) {
 //            worker.saveUser( "Mark Simple " + i, LocalDate.now().minusYears(20));
 //        }
 //        long finishSimpleInsert = System.currentTimeMillis();
@@ -250,7 +250,7 @@ public class Main {
 
 
         //TODO: transaction insert 10 users (success transactional insert)
-//        long startId = 5;
+//        long startId = 15;
 //        long countUsersForButches = 5;
 //        List<User> users1 = worker.generateTestUsers(countUsersForButches, startId,
 //                 "Transactional Alisa 10 ", 25);

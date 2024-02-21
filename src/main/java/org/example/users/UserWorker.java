@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class UserWorker {
 
+    public static final String PREPARE_STATEMENT_INSERT_1 =
+            "INSERT INTO users (id, name, birthday) VALUES (?, ?, ?)";
     public static final String PREPARE_STATEMENT_INSERT = "INSERT INTO users (name, birthday) VALUES (?, ?)";
     public static final String INSERT_STRING = "INSERT INTO users (id, name, birthday) VALUES (?, ?, ?)";
     private static final String SELECT_ALL_STRING = "SELECT id, name, birthday FROM users";
@@ -32,7 +34,7 @@ public class UserWorker {
         this.connection = connection;
         try {
             this.simpleInsertStatement = connection.createStatement();
-            this.insertStatement = connection.prepareStatement(PREPARE_STATEMENT_INSERT);
+            this.insertStatement = connection.prepareStatement(PREPARE_STATEMENT_INSERT_1);
 
             this.selectAllStatement = connection.prepareStatement(SELECT_ALL_STRING);
             this.selectByStatement = connection.prepareStatement(SELECT_BY_ID_STRING);
